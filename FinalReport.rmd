@@ -80,7 +80,7 @@ rowPerc(table1)
 colPerc(table1)
 print(table1)
 ```
-Based on this table, it appears that around 340 males were infected with the covid viru out of the close to 10,400 total males in this study. This table shows that 3.72% of males who recieved the treatment had gotten covid, while 2.55% of males who got the placebo instead got covid. This table shows that males who had gotten the vaccine were about 50% more likely to contract covid, which suggests that this treatment is not effective for males.
+Based on this table, it appears that around 337 males were infected with the covid virus out of the close to 10,787 total males in this study. This table shows that 3.72% of males who recieved the treatment had gotten covid, while 2.55% of males who got the placebo instead got covid. This table shows that males who had gotten the vaccine were about 50% more likely to contract covid, which suggests that this treatment is not effective for the prevention of covid in males.
 
 ## Inferential Results
 
@@ -90,9 +90,12 @@ chisqtestGC(table1)
 fisher.test(table1)
 ```
 The Chi squared table shows that the P-value of 0.0006181. This value is so small so it is unlikely that the results are by chance.
+
+Therefore we reject the null hypothesis because  males who got the vaccine were more likely to get covid so there was a difference.
+
 The odds ratio from the Fisher exact test shows 1.47:1, when taking the odds ratio and turning it into a percentage of effectiveness using the following formula: 0/(1+0)*100 you get 59.5% effectiveness. 
 
-Ultimately the vaccine is around 40% effective for males which makes the treatment in this study ineffective. 
+Ultimately the vaccine is around 40% effective for males which makes the treatment in this study ineffective for preventing covid in males. 
 
 # Methods
 
@@ -128,6 +131,11 @@ basicC + geom_bar(stat="identity",position="dodge")
 basicCC <- ggplot(Females,aes(x=infected,y=prcnt*100,fill=treatment)) 
 basicCC + geom_bar(stat="identity", position = "dodge")
 ```
+
+
+This bar chart shows that out of approximately 607 females who were infected with covid, 32% received the treatment, while 66% were given the placebo.
+
+
 ## Numerical Summary
 
 ```{r}
@@ -138,6 +146,8 @@ print(table2)
 ```
 
 
+Based on this table, it appears that around 607 females were infected with the covid virus out of the close to 9,213 total females in this study. This table shows that 4.44% of females who recieved the treatment had gotten covid, while 8.67% of females who got the placebo instead got covid. This table shows that females who had gotten the vaccine were about 67% less likely to contract covid, which suggests that this treatment is effective for the prevention of covid in females.
+
 ## Inferential Results
 
 ```{r}
@@ -145,7 +155,12 @@ chisq.test(table2)
 chisqtestGC(table2)
 fisher.test(table2)
 ```
-Based on the Fisher exact test the vaccine is 67% effective for females.
+
+The p-value is small at 0.00000000000000002 that it is highly unlikely that the result was by chance. 
+
+Therefore we reject the null hypothesis because  females who got the vaccine were less likely to get covid so there was a difference.
+
+Based on the Fisher exact test ratio of 2.05:1, then putting it into the formula of 0/(1+0)*100 you get 67% effectiveness. The vaccine is 67% effective for females, which means the treatment in this study is effective for prevention of covid in females.
 
 
 # Drug Users
@@ -183,6 +198,11 @@ basicC + geom_bar(stat="identity",position="dodge")
 basicCC <- ggplot(Druggie,aes(x=infected,y=prcnt*100,fill=treatment)) 
 basicCC + geom_bar(stat="identity", position = "dodge")
 ```
+
+
+
+This bar chart shows that out of approximately 117 drug users who were infected with covid, 33.3% received the treatment, while 66.6% were given the placebo.
+
 ## Numerical Summary
 
 ```{r}
@@ -193,6 +213,9 @@ print(table3)
 ```
 
 
+
+Based on this table, it appears that around 117 Drug Users were infected with the covid virus out of the close to 2,283 total drug users in this study. This table shows that 33.3% of drug users who recieved the treatment had gotten covid, while 66.6% of drug users who got the placebo instead got covid. This table shows that drug users who had gotten the vaccine were about 60% less likely to contract covid, which suggests that this treatment is effective for prevention of covid in drug users.
+
 ## Inferential Results
 
 ```{r}
@@ -201,6 +224,16 @@ chisqtestGC(table3)
 fisher.test(table3)
 ```
 The vaccine is 60% effective for the drug user population
+
+
+The p-value is small at 0.002273 that it is highly unlikely that the result was by chance. 
+
+Therefore we reject the null hypothesis because drug users who got the vaccine were more less likely to get covid so there was a difference.
+
+Based on the Fisher exact test ratio of 1.83:1, then putting it into the formula of 0/(1+0)*100 you get 60% effectiveness. The vaccine is 60% effective for drug users, which means the treatment in this study is effective for prevention of covid in drug users.
+
+
+
 # LGBTQ
 
 
@@ -237,6 +270,10 @@ basicC + geom_bar(stat="identity",position="dodge")
 basicCC <- ggplot(LGBTQ,aes(x=infected,y=prcnt*100,fill=treatment)) 
 basicCC + geom_bar(stat="identity", position = "dodge")
 ```
+
+This bar chart shows that out of approximately 116 drug users who were infected with covid, 70% received the treatment, while 29% were given the placebo.
+
+
 ## Numerical Summary
 
 ```{r}
@@ -245,6 +282,11 @@ rowPerc(table4)
 colPerc(table4)
 print(table4)
 ```
+116  out of 2042 LGBTQ
+
+
+
+Based on this table, it appears that around 116 LGBTQ were infected with the covid virus out of the close to 2,042 total LGBTQ in this study. This table shows that 70% of LGBTQ who recieved the treatment had gotten covid, while 29% of LGBTQ who got the placebo instead got covid. This table shows that LGBTQ who had gotten the vaccine were about 70% more ikely to contract covid, which suggests that this treatment is ineffective for prevention of covid in LGBTQ.
 
 
 ## Inferential Results
@@ -256,5 +298,15 @@ fisher.test(table4)
 ```
 
 
+The p-value is small at 0.0000057 that it is highly unlikely that the result was by chance. 
+
+Therefore we reject the null hypothesis because  LGBTQ who got the vaccine were more likely to get covid so there was a difference.
+
+Based on the Fisher exact test ratio of 0.40:1, then putting it into the formula of 0/(1+0)*100 you get 29% effectiveness. The vaccine is 29% effective for LGBTQ, which means the treatment in this study is ineffective for prevention of covid in LGBTQ.
+
+
+
 # Conclusions and recommendations
+
+We looked at four populations male, female, drug user, and LGBTQ
 
