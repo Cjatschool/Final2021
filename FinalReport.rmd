@@ -30,14 +30,19 @@ Druguser = filter(FinalData, DrugUser =="yes")
 
 A new  preventative vaccine (covid91) is under test in clinical trials. Given the nature of this vaccine it is suspected that the drug may exhibit different effectiveness across the variety of subpopulations tracked. Consider population subgroups consisting of Males, Females, just the drug users, and just those in the LGBTQ community. Write a complete report that separately considers this drug for each subgroup and your recommendations as to whether people in the subgroup should take the vaccine. Part of the information you need to compute is the so-called effectiveness of the drug for each subgroup of people. Include a 95% confidence interval of the effectiveness for each different subgroup. Structure your report in four sections each devoted to one of the four subgroups, use null and alternative hypothesis statements and correct statistical verbage when referencing p-values in conclusions.
 
+To start this study we have to isolate the subpopulations into Males, Females, LGBT, and Drug users and look into the effectiveness of the studies treatment for each population
 
 # Methods
 
-Firstly we have to isolate the population categories 
+$H_0$: The vaccine made no difference in whether or not males got covid
+
+$H_A$: The vaccine does make a difference in whether or not males got covid
+
 
 
 
 # Males
+Firstly we have to isolate the population categories 
 
 ```{r}
 maledata <- filter(FinalData, sex=="guy") 
@@ -75,22 +80,126 @@ rowPerc(table1)
 colPerc(table1)
 print(table1)
 ```
-Based on this table, it appears that around 340 males were infected with the covid viru out of the close to 10,400 total males in this study. This table shows that 3.72% of males who recieved the treatment had gotten covid, while 2.55% of males who got the placebo instead got covid.  
+Based on this table, it appears that around 340 males were infected with the covid viru out of the close to 10,400 total males in this study. This table shows that 3.72% of males who recieved the treatment had gotten covid, while 2.55% of males who got the placebo instead got covid. This table shows that males who had gotten the vaccine were about 50% more likely to contract covid, which suggests that this treatment is not effective for males.
 
+## Inferential Results
 
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
+The Chi squared table shows that the P-value of 0.0006181. This value is so small so it is unlikely that the results are by chance.
+The odds ratio from the Fisher exact test shows 1.47:1, when taking the odds ratio and turning it into a percentage of effectiveness using the following formula: 0/(1+0)*100 you get 59.5% effectiveness. 
+
+Ultimately the vaccine is around 40% effective for males which makes the treatment in this study ineffective. 
+
+# Methods
+
+$H_0$: The vaccine made no difference in whether or not females got covid
+
+$H_A$: The vaccine does make a difference in whether or not females got covid
 
 # Females
 
 
 
 
+```{r}
+femaledata <- filter(FinalData, sex=="gal") 
+femaledata$sex <- as.factor(femaledata$sex)
+```
 
 
+## Bar
+
+
+```{r}
+Females <- femaledata %>% group_by(infected,treatment) %>% summarize(count=n()) %>% mutate(prcnt=count/sum(count))
+
+
+# the group_by followed by summarize(count=n())
+
+basicC <- ggplot(Females,aes(x=infected,y=count,fill=treatment))
+basicC + geom_bar(stat="identity",position="dodge")
+
+#Now for percentage plot
+
+basicCC <- ggplot(Females,aes(x=infected,y=prcnt*100,fill=treatment)) 
+basicCC + geom_bar(stat="identity", position = "dodge")
+```
+## Numerical Summary
+
+```{r}
+table2 <- xtabs(~treatment + infected, data=femaledata)
+rowPerc(table2)
+colPerc(table2)
+print(table2)
+```
+
+
+## Inferential Results
+
+```{r}
+chisq.test(table2)
+chisqtestGC(table2)
+fisher.test(table2)
+```
+Based on the Fisher exact test the vaccine is 67% effective for females.
 
 
 # Drug Users
 
 
+# Methods
+
+$H_0$: The vaccine made no difference in whether or not drug users got covid
+
+$H_A$: The vaccine does make a difference in whether or not drug users got covid
+
+
+```{r}
+Druggiedata <- filter(FinalData, DrugUser=="yes") 
+Druggiedata$DrugUser <- as.factor(Druggiedata$DrugUser)
+```
+
+
+
+
+## Bar
+
+
+```{r}
+Druggie<- Druggiedata %>% group_by(infected,treatment) %>% summarize(count=n()) %>% mutate(prcnt=count/sum(count))
+
+
+# the group_by followed by summarize(count=n())
+
+basicC <- ggplot(Druggie,aes(x=infected,y=count,fill=treatment))
+basicC + geom_bar(stat="identity",position="dodge")
+
+#Now for percentage plot
+
+basicCC <- ggplot(Druggie,aes(x=infected,y=prcnt*100,fill=treatment)) 
+basicCC + geom_bar(stat="identity", position = "dodge")
+```
+## Numerical Summary
+
+```{r}
+table3 <- xtabs(~treatment + infected, data=Druggiedata)
+rowPerc(table3)
+colPerc(table3)
+print(table3)
+```
+
+
+## Inferential Results
+
+```{r}
+chisq.test(table3)
+chisqtestGC(table3)
+fisher.test(table3)
+```
 
 # LGBTQ
 
