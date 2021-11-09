@@ -200,11 +200,60 @@ chisq.test(table3)
 chisqtestGC(table3)
 fisher.test(table3)
 ```
-
+The vaccine is 60% effective for the drug user population
 # LGBTQ
 
 
 
+# Methods
+
+$H_0$: The vaccine made no difference in whether or not LGBTQ got covid
+
+$H_A$: The vaccine does make a difference in whether or LGBTQ got covid
+
+
+```{r}
+LGBTQdata <- filter(FinalData, LGBTQ=="gay") 
+LGBTQdata$LGBTQ <- as.factor(LGBTQdata$LGBTQ)
+```
+
+
+
+
+## Bar
+
+
+```{r}
+LGBTQ<- LGBTQdata %>% group_by(infected,treatment) %>% summarize(count=n()) %>% mutate(prcnt=count/sum(count))
+
+
+# the group_by followed by summarize(count=n())
+
+basicC <- ggplot(LGBTQ,aes(x=infected,y=count,fill=treatment))
+basicC + geom_bar(stat="identity",position="dodge")
+
+#Now for percentage plot
+
+basicCC <- ggplot(LGBTQ,aes(x=infected,y=prcnt*100,fill=treatment)) 
+basicCC + geom_bar(stat="identity", position = "dodge")
+```
+## Numerical Summary
+
+```{r}
+table4 <- xtabs(~treatment + infected, data=LGBTQdata)
+rowPerc(table4)
+colPerc(table4)
+print(table4)
+```
+
+
+## Inferential Results
+
+```{r}
+chisq.test(table4)
+chisqtestGC(table4)
+fisher.test(table4)
+```
 
 
 # Conclusions and recommendations
